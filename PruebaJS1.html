@@ -23,17 +23,28 @@
  {
     //entrada
    let imc_nominal = "";
+   let elemento_img = document.createElement("img");
+   let elemento_padre = document.getElementById("hook_img");
+   elemento_padre.appendChild(elemento_img);
+   console.log("Nº de hijos ");
+   elemento_padre.removeChild(elemento_padre.firstChild);
+
 
    if (imc_numerico < 16){
        imc_nominal = "Desnutrido";
+       elemento_img.src = "img/Desnutrido.jpg";
    }else if ((imc_numerico >= 16) && (imc_numerico < 18)){
        imc_nominal = "Delgado";
+       elemento_img.src = "img/delgado.jpg";
    }else if ((imc_numerico >= 18) && (imc_numerico < 25)){
        imc_nominal = "Ideal";
+       elemento_img.src = "img/ideal.jpg";
    }else if ((imc_numerico >= 25) && (imc_numerico < 31)){
        imc_nominal = "Sobrepeso";
+       elemento_img.src = "img/sobrepeso.jpg";
    }else {
        imc_nominal = "Obeso";
+       elemento_img.src = "img/sobrepeso.png";
    }
     //salida
     return imc_nominal;
@@ -56,11 +67,11 @@
     console.log(imc_nominal);
     document.getElementById("spLectura").innerHTML = imc_nominal;
 
-    //Crear un elemento imagen y cargarla
+   /** //Crear un elemento imagen y cargarla
     let elemento_img = document.createElement("img");
     elemento_img.src = "https://www.disfracestorrente.com/1173-large_default/disfraz-de-esqueleto-para-bebe-.jpg";
     let elemento_padre = document.getElementById("hook_img");
-    elemento_padre.appendChild(elemento_img);
+    elemento_padre.appendChild(elemento_img);*/
 
  }
 </script>
