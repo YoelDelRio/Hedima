@@ -3,16 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <title>Calcule su IMC </title>
+<!--FORMULA IMC peso/ altura2
+      <16 desnutrido
+>16 y <18 Delgado
+>18 y <25 Ideal
+>25 y <31 sobrepeso
+      >31 Obesidad-->
 
-    <script>
-    window.alert("bienvenido");
-    console.log("Funciona");
+<!--ALGORITMO
+1 OBTENER PESO
+2 OBETENER ALTURA 
+3 CALCULAR
+4 INFORMAR AL USUARIO-->
+ <script type="text/javascript">
+    /**
+    Funcion que calcula un valor nominal dado el imc en valor numérico
+    */
+ function obtenerIMCNominal(imc_numerico)
+ {
+  /**  //entrada
+   let imc_nominal = "";
+   let elemento_img = document.createElement("img");
+   let elemento_padre = document.getElementById("hook_img");
+   elemento_padre.appendChild(elemento_img);
+   console.log("Nº de hijos ");
+   elemento_padre.removeChild(elemento_padre.firstChild);*/
+   
 
-    </script>
 
+   if (imc_numerico < 16){
+       imc_nominal = "Desnutrido";
+       //elemento_img.src = "img/Desnutrido.jpg";
+   }else if ((imc_numerico >= 16) && (imc_numerico < 18)){
+       imc_nominal = "Delgado";
+       //elemento_img.src = "img/delgado.jpg";
+   }else if ((imc_numerico >= 18) && (imc_numerico < 25)){
+       imc_nominal = "Ideal";
+       //elemento_img.src = "img/ideal.jpg";
+   }else if ((imc_numerico >= 25) && (imc_numerico < 31)){
+       imc_nominal = "Sobrepeso";
+       //elemento_img.src = "img/sobrepeso.jpg";
+   }else {
+       imc_nominal = "Obeso";
+       //elemento_img.src = "img/sobrepeso.png";
+   }
+    //salida
+    return imc_nominal;
+
+ }
+ /**
+ funcion que devuelve el eemento imagen donde ira la fot 
+ del estado del IMC correspondiente
+ si no existe ningun elemento, lo cre
+ si existe, lo recicla
+ ENTRADAS, SALIDA, FUNCIONALIDAD, PRECONDICIONES Y POSTCONDICIONES
+ */
+function obtenerElementoImg()
+{
+    let elemento_img;
+    //obtenemos el elemento padre y vemos si tiene o no hijos
+    let padre = document.getElementById("hook_img");
+    if (padre.childElementCount==0)
+    {
+        console.log("no tengo hijo, lo creo");
+        //crearlo
+        elemento_img = document.createElement("img");
+        padre.appendChild(elemento_img);
+    }else{
+        console.log("tiene hijo img, lo reciclo")
+       //si existe
+       elemento_img = padre.firstChild;
+    }
+
+
+    return elemento_img; 
+
+}
+
+ function dibujarImg(imc_nominal) {
+
+     //TODO Obtener el elemento imagen
+     let return_img = obtenerElementoImg();
+        switch (imc_nominal) {
+            case "Desnutrido":
+            return_img.src = "img/Desnutrido.jpg";
+                break;
+            case "Delgado":
+            return_img.src="img/delgado.jpg";
+                break;
+            case "Ideal":
+            return_img.src="img/ideal.jpg";
+                break;
+            case "Sobrepeso":
+            return_img.src="img/sobrepeso.jpg";
+                break;
+            case "Obeso":
+            return_img.src="img/sobrepeso.png";
+                break;
+            default:
+                break;
+        }
+ }
+ function calcularIMC(){
+    console.log("Llamo a calcular IMC");
+	let peso = document.getElementById("inPeso").value;
+    console.log("Peso obtenido "+ peso);
+    let altura = document.getElementById("inAltura").value;
+    console.log("Altura obtenida "+ altura);
+
+    let imc = peso/(altura*altura);
+    console.log("Su IMC es: " + imc);
+    //mostar el resultado numerico
+    let resultado_imc = document.getElementById("spIMC")
+    resultado_imc.innerHTML = Math.round(imc);
+    //mostar el resultado nominal
+    let imc_nominal = obtenerIMCNominal(imc);
+    console.log(imc_nominal);
+    document.getElementById("spLectura").innerHTML = imc_nominal;
+    //mostramos la imagen
+    dibujarImg(imc_nominal);
+
+   /** //Crear un elemento imagen y cargarla
+    let elemento_img = document.createElement("img");
+    elemento_img.src = "https://www.disfracestorrente.com/1173-large_default/disfraz-de-esqueleto-para-bebe-.jpg";
+    let elemento_padre = document.getElementById("hook_img");
+    elemento_padre.appendChild(elemento_img);*/
+
+ }
+</script>
+<style>
+div {
+  width: 50%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  
+}
+.fweight {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.calculo {
+  width: 100%;
+  background-color:red;
+  color: white;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
-
+    <h1>CÁLCULO DEL IMC</h1>
+<div>
+<form method="get" alt="">
+           <label  for="peso">Dime tu peso:</label>
+            <input type="text" class="fweight" id="inPeso" placeholder="tu peso por favor">
+            
+            <label for="altura">Dime tu altura:</label>
+            <input type="text" class="fweight" id="inAltura" placeholder="tu altura por favor">
+           
+            <input type="button" class="calculo" onclick="calcularIMC()" value="Calcular" id ="inCalculo">
+            <p>IMC: <span id="spIMC">Resultado</span></p>
+            <p>Lectura: <span id="spLectura">Lectura</span></p>
+        </form>
+    </div>
+    <div id="hook_img"></div>
 
 </body>
 </html>
